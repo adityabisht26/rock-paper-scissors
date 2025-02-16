@@ -12,6 +12,32 @@ let score= JSON.parse(localStorage.getItem('score'));
 
             UpdateScoreElement();
 
+            let isAutoPlaying  = false;
+            let intervalId;
+
+            // const autoplay = () => {};
+
+            // but regular function here is best suitable because it is easier to read and this function syntax
+            // enables Hoisting.
+
+            function autoplay() {
+                if(!isAutoPlaying) {
+                    // intervalId = setInterval(function() { 
+                    intervalId = setInterval(()  => {           //  Here, we are passing a function into another 
+                        const playerMove = pickComputerMove();  //  function so it's recommended to use an Arrow
+                        playGame(playerMove);                   //  function.
+                    }, 1000);
+
+                    isAutoPlaying= true;
+                }
+
+                else {
+                    clearInterval(intervalId);
+                    isAutoPlaying = false;
+                }
+                
+            }
+
             function playGame(playerMove) {
                 const computerMove= pickComputerMove();
 
